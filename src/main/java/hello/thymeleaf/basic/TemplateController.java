@@ -22,4 +22,6 @@ public class TemplateController {
     public String layoutExtend() {
         return "template/layoutExtend/layoutExtendMain";
     }
+
+    //git 테스트용//
 }
