@@ -23,5 +23,5 @@ public class TemplateController {
         return "template/layoutExtend/layoutExtendMain";
     }
 
-    //git 테스트용
+    //git 테스트용//
 }
