@@ -46,13 +46,13 @@ public class ValidationItemControllerV1 {
     public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes, Model model) {
 
         // 검증 오류 결과를 보관
-        Map<String ,String> errors = new HashMap<>();
+        Map<String, String> errors = new HashMap<>();
 
         // 검증 로직
-        if (!StringUtils.hasText(item.getItemName())){ //상품 명이 없는 경우
+        if (!StringUtils.hasText(item.getItemName())) { //상품 명이 없는 경우
             errors.put("itemName", "상품 이름은 필수입니다.");
         }
-        if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 100000){
+        if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 100000) {
             errors.put("price", "가격은 1,000 ~ 1,000,00 까지 허용합니다.");
         }
         if (item.getQuantity() == null || item.getQuantity() >= 9999) {
@@ -60,7 +60,7 @@ public class ValidationItemControllerV1 {
         }
 
         //특정 필드가 아닌 복합 룰 검증
-        if (item.getPrice() != null && item.getQuantity() != null){
+        if (item.getPrice() != null && item.getQuantity() != null) {
             int resultPrice = item.getPrice() * item.getQuantity();
             if (resultPrice < 10000) {
                 errors.put("globalError", "가격 * 수량의 합은 10,000원 이상이어야 합니다. 현재 값 = " + resultPrice);
@@ -68,7 +68,7 @@ public class ValidationItemControllerV1 {
         }
 
         // 검증에 실패하면 다시 입력 폼으로
-        if (!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             log.info("errors = {}", errors);
             model.addAttribute("errors", errors);
             return "validation/v1/addform";

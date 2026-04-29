@@ -58,7 +58,7 @@ public class ValidationItemControllerV3 {
             }
         }
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             return "validation/v3/addform";
         }
@@ -81,7 +81,7 @@ public class ValidationItemControllerV3 {
             }
         }
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             return "validation/v3/addform";
         }
