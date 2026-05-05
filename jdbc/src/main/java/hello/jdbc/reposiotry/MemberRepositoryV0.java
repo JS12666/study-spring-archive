@@ -15,6 +15,10 @@ import java.util.NoSuchElementException;
 @Slf4j
 public class MemberRepositoryV0 {
 
+    private static @NonNull Connection getConnection() {
+        return DBConnectionUtil.getConnection();
+    }
+
     public Member save(Member member) throws SQLException {
         String sql = "insert into member(member_id, money) values (?, ?)";
 
@@ -134,9 +138,5 @@ public class MemberRepositoryV0 {
                 log.info("error", e);
             }
         }
-    }
-
-    private static @NonNull Connection getConnection() {
-        return DBConnectionUtil.getConnection();
     }
 }
