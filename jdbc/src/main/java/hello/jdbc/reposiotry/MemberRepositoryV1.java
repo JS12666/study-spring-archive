@@ -1,22 +1,30 @@
 package hello.jdbc.reposiotry;
 
-import hello.jdbc.connection.DBConnectionUtil;
 import hello.jdbc.domain.Member;
 import lombok.extern.slf4j.Slf4j;
-import org.jspecify.annotations.NonNull;
+import org.springframework.jdbc.support.JdbcUtils;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.NoSuchElementException;
 
 /**
- * JDBC - DriverManger 사용
+ * JDBC - DataSource 사용, JdbcUtils 사용
 * */
 
 @Slf4j
-public class MemberRepositoryV0 {
+public class MemberRepositoryV1 {
 
-    private static @NonNull Connection getConnection() {
-        return DBConnectionUtil.getConnection();
+    private final DataSource dataSource;
+
+    public MemberRepositoryV1(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    private Connection getConnection() throws SQLException {
+        Connection con = dataSource.getConnection();
+        log.info("get connection={}, class={}", con, con.getClass());
+        return con;
     }
 
     public Member save(Member member) throws SQLException {
@@ -115,28 +123,9 @@ public class MemberRepositoryV0 {
 
     private void close(Connection con, Statement stmt, ResultSet rs) {
 
-        if (rs != null){
-            try {
-                rs.close();
-            } catch (SQLException e) {
-                log.info("error", e);
-            }
-        }
+        JdbcUtils.closeResultSet(rs);
+        JdbcUtils.closeStatement(stmt);
+        JdbcUtils.closeConnection(con);
 
-        if (stmt != null) {
-            try {
-                stmt.close();
-            } catch (SQLException e) {
-                log.info("error", e);
-            }
-        }
-
-        if (con != null){
-            try {
-                con.close();
-            } catch (SQLException e) {
-                log.info("error", e);
-            }
-        }
     }
 }
