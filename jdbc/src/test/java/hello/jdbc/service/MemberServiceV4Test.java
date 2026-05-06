@@ -1,10 +1,7 @@
 package hello.jdbc.service;
 
 import hello.jdbc.domain.Member;
-import hello.jdbc.reposiotry.MemberRepository;
-import hello.jdbc.reposiotry.MemberRepositoryV3;
-import hello.jdbc.reposiotry.MemberRepositoryV4_1;
-import hello.jdbc.reposiotry.MemberRepositoryV4_2;
+import hello.jdbc.reposiotry.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -51,7 +48,8 @@ class MemberServiceV4Test {
 
         @Bean
         MemberRepository memberRepository() {
-            return new MemberRepositoryV4_2(dataSource);
+//            return new MemberRepositoryV4_2(dataSource);
+            return new MemberRepositoryV5(dataSource);
         }
 
         @Bean
